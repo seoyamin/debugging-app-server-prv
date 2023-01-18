@@ -1,0 +1,25 @@
+server:
+  port: 3000
+
+spring:
+  profiles:
+     include:
+       - secret
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+    ddl-auto: create
+    properties:
+      hibernate:
+        #show_sql: true
+        format_sql: true
+        default_batch_fetch_size : 100
+    generate-ddl: true
+
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
