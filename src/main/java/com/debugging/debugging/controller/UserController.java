@@ -1,22 +1,26 @@
 package com.debugging.debugging.controller;
 
-import com.debugging.debugging.model.User;
+import com.debugging.debugging.domain.user.User;
+import com.debugging.debugging.dto.UserDto;
 import com.debugging.debugging.service.UserService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
-@RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/user")
-    public List<User> userAll() {
-        return userService.findAll();
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<User> signup(@Valid @RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.signup(userDto));
     }
 
 }
